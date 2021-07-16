@@ -1,6 +1,6 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
-
+from kivy.uix.label import Label
 
 class NavBar(BoxLayout):
 
@@ -28,6 +28,17 @@ class NavBar(BoxLayout):
         self.add_widget(shop_button)
 
         return self
+
+    def calender_navbar(self):
+        box_layout = BoxLayout(size_hint=[1, 0.1])
+
+        new_event_btn = Button(text="+", pos_hint={'right': 1}, size_hint=[0.15, 1])
+
+        box_layout.add_widget(Button(text="<", pos_hint={'left': 1}, size_hint=[0.15, 1]))
+        box_layout.add_widget(Label(text="What week are we in?", pos_hint={'center': 1}))
+        box_layout.add_widget(new_event_btn)
+        box_layout.add_widget(Button(text=">", pos_hint={'right': 1}, size_hint=[0.15, 1]))
+        return box_layout
 
     def switch_to(self,arg):
         def callback(instance):
