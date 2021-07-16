@@ -63,6 +63,4 @@ class Application(App):
 
         return main_box
 
-
-
 Application().run()
