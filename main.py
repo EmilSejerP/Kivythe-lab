@@ -2,26 +2,42 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.stacklayout import StackLayout
-from kivy.uix.textinput import TextInput
-from kivy.uix.widget import Widget
+from kivy.uix.label import Label
 from TimeScript import *
-from datetime import date
 class TestLayout(BoxLayout):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         time_script = TimeScript()
-        grid_layout = GridLayout(cols=7)
 
+        #create upper menu
+        box_layout = BoxLayout(orientation="vertical",size_hint=[1,0.1])
+        box_layout.add_widget(Button(text="jroasjikodkjlæsajrdlkjsadlrjklrjklsadjr"))
+
+        #create lower menu
+
+        #create month layout
+        grid_layout = GridLayout(cols=7,size_hint=[1,0.9])
         for i in range(time_script.get_day_amount()):
-            day = BoxLayout(orientation="vertical")
-            day.add_widget(TextInput(text=f"{str(time_script.get_current_time().year)} {str(time_script.get_current_time().month)} {i+1}"))
-            day.add_widget(Button(text="Button1"))
+            day = BoxLayout(orientation="vertical",
+                            size_hint=[0.5,None])
+            if time_script.get_current_time().day == i+1:
+                day.add_widget(Label(text=f"Currenday!",
+                                     size_hint = [None,0.2]))
+                day.add_widget(Button(text="Button1"))
+            else:
+                day.add_widget(Label(text=f"{str(time_script.get_current_time().year)} "
+                                          f"{str(time_script.get_current_time().month)} "
+                                          f"{i+1}",
+                                     size_hint = [None,0.2]))
+            #day.add_widget(Button(text="Button1"))
             grid_layout.add_widget(day)
+        self.__setattr__("orientation","vertical")
+        self.add_widget(box_layout)
         self.add_widget(grid_layout)
 
-    pass
+
+        pass
 
 
 
