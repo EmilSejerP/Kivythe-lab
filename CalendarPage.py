@@ -1,4 +1,3 @@
-from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from NewEventPage import *
@@ -10,7 +9,7 @@ class CalendarPage(Screen):
         self.__setattr__("orientation","vertical")
         self.navbar = navbar
 
-    def create_calendar_page(self):
+    def create_page(self):
         box_layout = BoxLayout(orientation="vertical")
 
         grid_layout = GridLayout(cols=8)

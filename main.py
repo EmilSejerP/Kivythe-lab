@@ -28,7 +28,8 @@ class Application(App):
     def build(self):
         nav_bars = NavBar(sm)
         calendar_page = CalendarPage(nav_bars.calender_navbar())
-        lst = [calendar_page.create_calendar_page(),Character(),Journal(),Quest(),Shop()]
+        new_event_page = NewEventPage()
+        lst = [calendar_page.create_page(),Character(),Journal(),Quest(),Shop(),new_event_page.create_page()]
         main_box = BoxLayout(orientation="vertical")
         sm.switch_to(lst[0])
         main_box.add_widget(nav_bars.main_navbar(lst))
