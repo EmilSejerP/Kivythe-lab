@@ -18,6 +18,7 @@ class Character(Screen):
 class Journal(Screen):
     pass
 
+
 class Quest(Screen):
     pass
 
@@ -33,6 +34,10 @@ def switch_to(arg):
     return callback
 
 class Application(App):
+    def process_text(self):
+        text = self.root.ids.get('input')
+        print(text)
+
 
     def build(self):
         main_box = BoxLayout(orientation="vertical")
@@ -63,6 +68,10 @@ class Application(App):
 
         return main_box
 
+def main():
+    Application().run()
 
 
-Application().run()
+if __name__ == '__main__':
+    main()
+
