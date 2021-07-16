@@ -1,6 +1,7 @@
 from kivy.app import App
 from CalendarPage import *
 from kivy.uix.screenmanager import ScreenManager, Screen
+from Player import *
 
 class Calendar(Screen):
 
@@ -13,9 +14,14 @@ class Calendar(Screen):
     pass
 
 class Character(Screen):
+    def change_str_text(self):
+        self.ids.str.text = 5
+    
     pass
 
 class Journal(Screen):
+    def print_input_text(self):
+        print(self.ids.input.text)
     pass
 
 
@@ -33,21 +39,40 @@ def switch_to(arg):
         sm.switch_to(arg)
     return callback
 
+
+
+
 class Application(App):
-    def process_text(self):
-        text = self.root.ids.get('input')
-        print(text)
+    player = Player() #move l8r
+
+    def fetch_character_sheet(self): #move l8r
+        player.read_from_json() #update char.
+        return player
+
+    ##template for property change ##
+    #def on_property(self,obj,value): 
+    #   print("property change?")
+
+    ##template for event##
+    #def on_event(self, obj):
+    #    print("Typical event from", obj)
+
+    def on_character_event(self,obj):
+        print(obj, " was pressend and the character sheet in app was updated.")
+        player.read_from_json()
+        player.x
 
 
     def build(self):
         main_box = BoxLayout(orientation="vertical")
-
         box_layout = BoxLayout(size_hint=[1, 0.1])
 
         calendar_button = Button(text="Calendar")
         calendar_button.bind(on_release=switch_to(Calendar()))
         character_button = Button(text="Character")
         character_button.bind(on_release=switch_to(Character()))
+        character_button.bind(on_release=Character.change_str_text)
+
         journal_button = Button(text="Journal")
         journal_button.bind(on_release=switch_to(Journal()))
         quest_button = Button(text="Quest")
@@ -70,7 +95,6 @@ class Application(App):
 
 def main():
     Application().run()
-
 
 if __name__ == '__main__':
     main()

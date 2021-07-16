@@ -8,7 +8,7 @@
 		Button:
 			size_hint: 1, 0.1
 			text: 'Save Input'
-			on_release: app.process_text()
+			on_release: root.print_input_text()
 
 <Character>:
 	BoxLayout:
@@ -17,6 +17,7 @@
 		valign: "left"
 
 		Label:
+			id:str
 			text_size: self.size
 			valign: "middle"
 			padding_x: 5
@@ -24,6 +25,7 @@
 			color: 1,0,0,1
 			pos_hint:{"left":1}
 		Label:
+			id:end
 			text_size: self.size
 			valign: "middle"
 			padding_x: 5
@@ -31,6 +33,7 @@
 			color: 1,0,0,1
 			pos_hint:{"left":1}
 		Label:
+			id:int
 			text_size: self.size
 			valign: "middle"
 			padding_x: 5
@@ -38,11 +41,11 @@
 			color: 1,0,0,1
 			pos_hint:{"left":1}
 		Label:
+			id:spt
 			text_size: self.size
 			valign: "middle"
 			padding_x: 5
 			text: 'Spirit:'
 			color: 1,0,0,1
 			pos_hint:{"left":1}
-
 
