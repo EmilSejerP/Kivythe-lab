@@ -3,6 +3,8 @@ from CalendarPage import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 from Player import *
 
+from NavBar import *
+from NewEventPage import *
 
 class Character(Screen):
     pass
@@ -11,7 +13,6 @@ class Journal(Screen):
     def print_input_text(self):
         print(self.ids.input.text)
     pass
-
 
 class Quest(Screen):
     pass
@@ -51,7 +52,6 @@ class Application(App):
         sm.switch_to(lst[0])
         main_box.add_widget(nav_bars.main_navbar(lst))
         main_box.add_widget(sm)
-
         return main_box
 
 def main():
