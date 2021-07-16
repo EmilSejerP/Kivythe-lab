@@ -1,0 +1,48 @@
+<Journal>:
+	BoxLayout:
+		orientation: 'vertical'
+
+        TextInput:
+			id: input
+			on_text: 'test'
+		Button:
+			size_hint: 1, 0.1
+			text: 'Save Input'
+			on_release: app.process_text()
+
+<Character>:
+	BoxLayout:
+		size_hint: 0.2,1
+		orientation: 'vertical'
+		valign: "left"
+
+		Label:
+			text_size: self.size
+			valign: "middle"
+			padding_x: 5
+			text: 'Strength:'
+			color: 1,0,0,1
+			pos_hint:{"left":1}
+		Label:
+			text_size: self.size
+			valign: "middle"
+			padding_x: 5
+			text: 'Endurance:'
+			color: 1,0,0,1
+			pos_hint:{"left":1}
+		Label:
+			text_size: self.size
+			valign: "middle"
+			padding_x: 5
+			text: 'Intelligence:'
+			color: 1,0,0,1
+			pos_hint:{"left":1}
+		Label:
+			text_size: self.size
+			valign: "middle"
+			padding_x: 5
+			text: 'Spirit:'
+			color: 1,0,0,1
+			pos_hint:{"left":1}
+
+

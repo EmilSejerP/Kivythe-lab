@@ -20,6 +20,7 @@ class Character(Screen):
 class Journal(Screen):
     pass
 
+
 class Quest(Screen):
     pass
 
@@ -29,6 +30,10 @@ class Shop(Screen):
 sm = ScreenManager()
 
 class Application(App):
+    def process_text(self):
+        text = self.root.ids.get('input')
+        print(text)
+
 
     def build(self):
         lst = [Calendar(),Character(),Journal(),Quest(),Shop()]
@@ -41,4 +46,10 @@ class Application(App):
 
         return main_box
 
-Application().run()
+def main():
+    Application().run()
+
+
+if __name__ == '__main__':
+    main()
+
