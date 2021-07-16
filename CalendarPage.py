@@ -12,8 +12,10 @@ class CalendarPage(BoxLayout):
 
 
     def calendar_navbar(self):
-        box_layout = BoxLayout(orientation="vertical",size_hint=[1,0.1])
-        box_layout.add_widget(Label(text="Im the navbar"))
+        box_layout = BoxLayout(size_hint=[1,0.1])
+        box_layout.add_widget(Button(text="<", pos_hint={'left':1},size_hint=[0.2,1]))
+        box_layout.add_widget(Label(text="What week are we in?", pos_hint={'center': 1}))
+        box_layout.add_widget(Button(text=">", pos_hint={'right':1},size_hint=[0.2,1]))
         self.add_widget(box_layout)
 
     def create_calendar_page(self):
@@ -24,7 +26,7 @@ class CalendarPage(BoxLayout):
         new_box_layout = BoxLayout(orientation="vertical")
         new_box_layout.add_widget(Label(text="Time"))
         for i in range(24):
-            new_box_layout.add_widget(Label(text=f"{i + 1}"))
+            new_box_layout.add_widget(Label(text=f"{i + 1}:00"))
         grid_layout.add_widget(new_box_layout)
 
         week_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
