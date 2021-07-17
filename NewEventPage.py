@@ -20,6 +20,7 @@ class NewEventPage(Screen):
         super().__init__(**kwargs)
         self.app = App.get_running_app()
         self.days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        self.create_page()
 
     def create_page(self):
 
@@ -98,11 +99,14 @@ class NewEventPage(Screen):
     def new_event(self,obj):
         start_tid = [i.text for i in ToggleButtonBehavior.get_widgets('start_tid') if i.state == 'down']
         slut_tid = [i.text for i in ToggleButtonBehavior.get_widgets('slut_tid') if i.state == 'down']
-        name = self.ids['text_field_name'].text
-        type = self.ids['mainbutton'].text
-        active_days = []
-        for day in self.days:
-            if self.ids[day].active == True:
-                active_days.append(day)
-        event_object = EventObject(name, type, active_days, start_tid, slut_tid)
-        event_object.write_to_json()
+        if int(slut_tid[0]) - int(start_tid[0]) > 0:
+            name = self.ids['text_field_name'].text
+            type = self.ids['mainbutton'].text
+            active_days = []
+            for day in self.days:
+                if self.ids[day].active == True:
+                    active_days.append(day)
+            event_object = EventObject(name, type, active_days, start_tid, slut_tid)
+            event_object.write_to_json()
+        else:
+            print('Error creating event: cannot create events that goes into the past')

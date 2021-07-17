@@ -11,7 +11,8 @@ class NavBar(BoxLayout):
 
     def main_navbar(self,lst):
         calendar_button = Button(text="Calendar")
-        calendar_button.bind(on_release=self.switch_to(lst[0]))
+        calendar_button.bind(on_release=self.switch_to(lst[0].create_page()))
+        calendar_button.bind(on_release=lst[0].update)
         character_button = Button(text="Character")
         character_button.bind(on_release=self.switch_to(lst[1]))
         journal_button = Button(text="Journal")
