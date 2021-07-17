@@ -69,12 +69,40 @@
 
 
 <Quest>:
-	
+    BoxLayout:
+		orientation: 'vertical'
+		
+		BoxLayout:
+			id: available_quests
+			Label:
+				text_size: self.size
+				halign: 'center'
+				valign: 'top'
+				text: "Available Quests"
+		FloatLayout:
+			id: accepted_quests
+			Label:
+				text_size: self.size
+				halign: 'center'
+				valign: 'top'
+				text: "Accepted Quests"
+
+ 
 
 <Notice>:
 	BoxLayout:
-		Label:
-		text: Hunt five goblins
+		orientation: 'vertical'
+		
+		size_hint: 0.2,0.2
+		
+		Button:
+			id: quest_button
+			Label:
+				id: quest_text
+				text_size: self.size
+				halign: 'center'
+				valign: 'middle'
+				text: "Hunt five goblins"
 
 	
 

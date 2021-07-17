@@ -3,7 +3,8 @@ from kivy.uix.boxlayout import BoxLayout
 
 class Quest(Screen):
     def __init__(self, **kwargs):
-        self.quest_amount = 5;
+        super().__init__(**kwargs)
+        self.add_widget(Notice())
         pass
     
     def add_quest(self, notice, xpos, ypos):
@@ -14,4 +15,6 @@ class Quest(Screen):
 
 class Notice(BoxLayout):
     def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        pass
     
