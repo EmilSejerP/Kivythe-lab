@@ -20,14 +20,3 @@ class EventObject:
 
         with open('events.json','w') as outfile:
             json.dump(event_dict,outfile)
-
-    def read_from_json(self):
-        with open('events.json') as json_file:
-            event_dict = json.load(json_file)
-
-        get_id = event_dict[self.id]
-        get_name = event_dict[self.id]['name']
-        get_type = event_dict[self.id]['type']
-        get_day = event_dict[self.id]['days']
-        get_time_start = event_dict[self.id]['time_start']
-        get_time_stop = event_dict[self.id]['time_stop']

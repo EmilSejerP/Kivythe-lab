@@ -14,37 +14,37 @@ class CalendarPage(Screen):
 
     def create_page(self):
 
-        img = Image(source="old_paper.jpg")
-        anchor_layout = AnchorLayout(anchor_x='center',anchor_y='center')
-        anchor_layout.add_widget(img)
-
-        box_layout = BoxLayout(orientation="vertical")
-
-        grid_layout = GridLayout(cols=8)
-
-        new_box_layout = BoxLayout(orientation="vertical")
-        new_box_layout.add_widget(Label(text="Time",color=(0,0,0)))
-        for i in range(24):
-            new_box_layout.add_widget(Label(text=f"{i + 1}:00",color=(0,0,0)))
-        grid_layout.add_widget(new_box_layout)
-
-        week_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        box_layout_page = BoxLayout(orientation='vertical')
+        grid_layout = GridLayout(cols=7)
+        week_days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
         for day in week_days:
-            new_box_layout = BoxLayout(orientation="vertical")
-            new_box_layout.add_widget(Label(text=f"{day}",color=(0,0,0)))
-            for i in range(24):
-                new_box_layout.add_widget(Label(text=""))
-            grid_layout.add_widget(new_box_layout)
+            grid_layout.add_widget(Label(text=f"{day}",size_hint_y=None))
 
-        box_layout.add_widget(self.navbar)
-        box_layout.add_widget(grid_layout)
+        for day in week_days:
+            box_layout = BoxLayout(orientation='vertical',size_hint_y=None)
+            self.ids[day] = box_layout
+            grid_layout.add_widget(self.ids[day])
 
-        anchor_layout.add_widget(box_layout)
+        box_layout_page.add_widget(self.navbar)
+        box_layout_page.add_widget(grid_layout)
 
-        self.add_widget(anchor_layout)
+        self.add_widget(box_layout_page)
+        self.update()
         return self
 
-    #def update(self,event_object):
+    def update(self):
+        with open('events.json') as json_file:
+            event_dict = json.load(json_file)
+
+        color_dict = {}
+
+        for i in event_dict:
+            current_obj = event_dict.get(i)
+            for j in current_obj['days']:
+                self.ids[j].add_widget(Button(text=f"{current_obj['name']} \n"
+                                                   f"{current_obj['type']} \n"
+                                                   f"{current_obj['time_start'][0]}:00 -"
+                                                   f" {current_obj['time_stop'][0]}:00"))
 
 
