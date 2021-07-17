@@ -22,8 +22,8 @@ class CalendarPage(Screen):
             grid_layout.add_widget(Label(text=f"{day}",size_hint_y=None))
 
         for day in week_days:
-            box_layout = BoxLayout(orientation='vertical',size_hint_y=None)
-            self.ids[day] = box_layout
+            grid_layout_days = GridLayout(cols=1)
+            self.ids[day] = grid_layout_days
             grid_layout.add_widget(self.ids[day])
 
         box_layout_page.add_widget(self.navbar)
@@ -45,6 +45,7 @@ class CalendarPage(Screen):
                 self.ids[j].add_widget(Button(text=f"{current_obj['name']} \n"
                                                    f"{current_obj['type']} \n"
                                                    f"{current_obj['time_start'][0]}:00 -"
-                                                   f" {current_obj['time_stop'][0]}:00"))
+                                                   f" {current_obj['time_stop'][0]}:00",
+                                              size_hint=[1,None]))
 
 

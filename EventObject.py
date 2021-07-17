@@ -10,13 +10,18 @@ class EventObject:
         self.id = f"{name}{days}{str(time_start)}"
 
     def write_to_json(self):
-        event_dict = {}
+        event_dict = self.__read_json_entries()
         event_dict[self.id] = {}
         event_dict[self.id]['name'] = self.name
         event_dict[self.id]['type'] = self.type
         event_dict[self.id]['days'] = self.days
         event_dict[self.id]['time_start'] = self.time_start
         event_dict[self.id]['time_stop'] = self.time_stop
-
         with open('events.json','w') as outfile:
             json.dump(event_dict,outfile)
+
+    def __read_json_entries(self):
+        with open('events.json') as json_file:
+            dict = json.load(json_file)
+        return dict
+
