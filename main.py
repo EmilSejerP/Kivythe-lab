@@ -22,11 +22,6 @@ class Character(Screen): #should be merged with player.py either by having the p
         str_val = stats[stat]
 
         return str(str_val)
-    
-
-
-
-
 
 class Application(App):
     def __init__(self, **kwargs):
