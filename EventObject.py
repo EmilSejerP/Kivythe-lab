@@ -1,20 +1,20 @@
 import json
 
 class EventObject:
-    def __init__(self,name,type,day,time_start,time_stop):
+    def __init__(self,name,type,days,time_start,time_stop):
         self.name = name
         self.type = type
-        self.day = day
+        self.days = days
         self.time_start = time_start
         self.time_stop = time_stop
-        self.id = f"{name}{day}{str(time_start)}"
+        self.id = f"{name}{days}{str(time_start)}"
 
     def write_to_json(self):
         event_dict = {}
         event_dict[self.id] = {}
         event_dict[self.id]['name'] = self.name
         event_dict[self.id]['type'] = self.type
-        event_dict[self.id]['day'] = self.day
+        event_dict[self.id]['days'] = self.days
         event_dict[self.id]['time_start'] = self.time_start
         event_dict[self.id]['time_stop'] = self.time_stop
 
@@ -28,6 +28,6 @@ class EventObject:
         get_id = event_dict[self.id]
         get_name = event_dict[self.id]['name']
         get_type = event_dict[self.id]['type']
-        get_day = event_dict[self.id]['day']
+        get_day = event_dict[self.id]['days']
         get_time_start = event_dict[self.id]['time_start']
         get_time_stop = event_dict[self.id]['time_stop']
