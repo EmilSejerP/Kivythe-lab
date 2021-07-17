@@ -10,34 +10,34 @@ class QuestTracker:
         self.time_spent_int = 0
         self.accepted_quests = []
 
-    def scan_accepted_quests(self):
+    def scan_accepted_quests(self): ##not implemented. instead done on attempted quest completion
         return True
 
 class Quest(Screen):
     def __init__(self, player, **kwargs):
         super().__init__(**kwargs)
-        self.quest_tracker = QuestTracker()
+        self.quest_tracker = QuestTracker() #init quest tracker that keeps track of progress
 
         self.notice = Notice(player)
         self.notice.text = "place 2 workout hours this week. On complete +2 str." 
         self.notice.bind(on_release=self.on_accepted_quest)
-        self.notice.bonus_to_str = 2
-        self.ids.available_quests.add_widget(self.notice)
+        self.notice.bonus_to_str = 2 #the bonuses and requirements for the tasks need to be set manually
+        self.ids.available_quests.add_widget(self.notice) #add the notice to the available tasks in the app
        
-        self.quest_tracker.accepted_quests.append(self.notice)
+        self.quest_tracker.accepted_quests.append(self.notice) #not implemented
     
-    def on_accepted_quest(self, obj):
-        self.ids.available_quests.remove_widget(obj)
-        self.ids.accepted_quests.add_widget(obj)
-        obj.unbind(on_release=self.on_accepted_quest)
-        obj.bind(on_release=self.on_completed_quest)
+    def on_accepted_quest(self, obj): ##when we press accept quest in app:
+        self.ids.available_quests.remove_widget(obj) ##we remove it from the list of available quests
+        self.ids.accepted_quests.add_widget(obj) #and move it to the accepted quest pool.
+        obj.unbind(on_release=self.on_accepted_quest) #we unbind the accept quest command
+        obj.bind(on_release=self.on_completed_quest) #and bind the complete quest command instead.
         print("accepted quest: ", obj)
 
-    def on_completed_quest(self,obj):
+    def on_completed_quest(self,obj): #if the player meets the requirements set for the task in quest tracker
         if obj.requirement_int >= self.quest_tracker.time_spent_int and obj.requirement_str >= self.quest_tracker.time_spent_str and obj.requirement_end >= self.quest_tracker.time_spent_end and obj.requirement_spt >= self.quest_tracker.time_spent_spt: #spaghetti.
-            self.ids.accepted_quests.remove_widget(obj)
-            self.ids.available_quests.remove_widget(obj)
-            obj.complete_quest(obj)
+            self.ids.accepted_quests.remove_widget(obj) #we remove the notice from the board 
+            self.ids.available_quests.remove_widget(obj) #
+            obj.complete_quest(obj) #and give the player the bonuses for completing the task.
             
             print("removed widget, and completed quest: ", obj)
 
