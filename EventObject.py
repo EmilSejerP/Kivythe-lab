@@ -21,7 +21,10 @@ class EventObject:
             json.dump(event_dict,outfile)
 
     def __read_json_entries(self):
-        with open('events.json') as json_file:
-            dict = json.load(json_file)
-        return dict
+        try:
+            with open('events.json') as json_file:
+                dict = json.load(json_file)
+            return dict
+        except:
+            return {}
 
