@@ -36,7 +36,7 @@ class NavBar(BoxLayout):
         new_event_btn.bind(on_release=self.switch_to(page))
 
         box_layout.add_widget(Button(text="<", pos_hint={'left': 1}, size_hint=[0.15, 1]))
-        box_layout.add_widget(Label(text="What week are we in?", pos_hint={'center': 1}))
+        box_layout.add_widget(Label(text="What week are we in?", pos_hint={'center': 1},color=(0,0,0)))
         box_layout.add_widget(new_event_btn)
         box_layout.add_widget(Button(text=">", pos_hint={'right': 1}, size_hint=[0.15, 1]))
         return box_layout
