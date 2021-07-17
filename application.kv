@@ -1,51 +1,75 @@
 <Journal>:
 	BoxLayout:
-		orientation: 'vertical'
-
-        TextInput:
-			id: input
-			on_text: 'test'
-		Button:
-			size_hint: 1, 0.1
-			text: 'Save Input'
-			on_release: root.print_input_text()
+		orientation: 'horizontal'
+	
+		ScrollView:
+			orientation: 'horizontal'
+			size_hint: 0.5,1
+			
+			GridLayout:
+				id: box_share
+				cols: 1
+				size_hint_y: None
+				spacing: 10
+				padding: 10
+				height: self.minimum_height
+				canvas:
+					Color:
+						rgb: 0.3, 0.3, 0.3
+					Rectangle:
+						pos: self.pos
+						size: self.size
+						
+		BoxLayout:
+			orientation: 'vertical'
+			TextInput:
+				id: title_input
+				size_hint: 1,0.1
+				hint_text: 'Title here.'
+			TextInput:
+				id: input
+				hint_text: 'Journal entry here.'
+			Button:
+				size_hint: 1, 0.1
+				text: 'Save Input'
+				on_release: root.create_entry()
+		
 
 <Character>:
 	BoxLayout:
-		size_hint: 0.2,1
 		orientation: 'vertical'
-		valign: "left"
 
 		Label:
 			id:str
 			text_size: self.size
-			valign: "middle"
 			padding_x: 5
-			text: 'Strength:'
+			text: 'Strength:' + root.fetch_stat("str")
 			color: 1,0,0,1
-			pos_hint:{"left":1}
+
 		Label:
 			id:end
 			text_size: self.size
-			valign: "middle"
 			padding_x: 5
-			text: 'Endurance:'
+			text: 'Endurance:' + root.fetch_stat("end")
 			color: 1,0,0,1
-			pos_hint:{"left":1}
+
 		Label:
 			id:int
 			text_size: self.size
-			valign: "middle"
 			padding_x: 5
-			text: 'Intelligence:'
+			text: 'Intelligence:' + root.fetch_stat("int")
 			color: 1,0,0,1
-			pos_hint:{"left":1}
+
 		Label:
 			id:spt
 			text_size: self.size
-			valign: "middle"
 			padding_x: 5
-			text: 'Spirit:'
+			text: 'Spirit:' + root.fetch_stat("spt")
 			color: 1,0,0,1
-			pos_hint:{"left":1}
+
+			
+
+
+
+			
 

@@ -2,7 +2,6 @@ from kivy.app import App
 from CalendarPage import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 from Player import *
-from kivy.core.window import Window
 
 from NavBar import *
 from NewEventPage import *
@@ -45,8 +44,6 @@ class Application(App):
 
 
     def build(self):
-        Window.clearcolor = (1,1,1,1)
-
         nav_bars = NavBar(sm)
 
         new_event_page = NewEventPage()

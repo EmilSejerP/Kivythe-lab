@@ -25,8 +25,9 @@ class Player:
         with open('player.json') as json_file:
             stats = json.load(json_file)
 
-        self.str = stats['str']
+        self.str = stats['str'] 
         self.int = stats['int']
         self.end = stats['end']
         self.spt = stats['spt']
 
+    
