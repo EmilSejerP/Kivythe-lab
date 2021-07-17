@@ -16,7 +16,7 @@ class QuestTracker:
 class Quest(Screen):
     def __init__(self, player, **kwargs):
         super().__init__(**kwargs)
-        quest_tracker = QuestTracker()
+        self.quest_tracker = QuestTracker()
 
         self.notice = Notice(player)
         self.notice.text = "place 2 workout hours this week. On complete +2 str." 
@@ -24,17 +24,26 @@ class Quest(Screen):
         self.notice.bonus_to_str = 2
         self.ids.available_quests.add_widget(self.notice)
        
-        quest_tracker.accepted_quests.append(self.notice)
+        self.quest_tracker.accepted_quests.append(self.notice)
     
     def on_accepted_quest(self, obj):
         self.ids.available_quests.remove_widget(obj)
         self.ids.accepted_quests.add_widget(obj)
         obj.unbind(on_release=self.on_accepted_quest)
-        obj.bind(on_release=obj.complete_quest)
-        obj.bind(on_release=self.remove_obj)
+        obj.bind(on_release=self.on_completed_quest)
         print("accepted quest: ", obj)
 
+    def on_completed_quest(self,obj):
+        if obj.requirement_int >= self.quest_tracker.time_spent_int and obj.requirement_str >= self.quest_tracker.time_spent_str and obj.requirement_end >= self.quest_tracker.time_spent_end and obj.requirement_spt >= self.quest_tracker.time_spent_spt: #spaghetti.
+            self.ids.accepted_quests.remove_widget(obj)
+            self.ids.available_quests.remove_widget(obj)
+            obj.complete_quest(obj)
+            
+            print("removed widget, and completed quest: ", obj)
+
+
     def remove_obj(self,obj):
+
         self.ids.accepted_quests.remove_widget(obj)
         self.ids.available_quests.remove_widget(obj)
 
