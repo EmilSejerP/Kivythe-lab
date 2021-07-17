@@ -34,18 +34,21 @@ class CalendarPage(Screen):
         return self
 
     def update(self):
-        with open('events.json') as json_file:
-            event_dict = json.load(json_file)
+        try:
+            with open('events.json') as json_file:
+                event_dict = json.load(json_file)
 
-        color_dict = {}
+            color_dict = {}
 
-        for i in event_dict:
-            current_obj = event_dict.get(i)
-            for j in current_obj['days']:
-                self.ids[j].add_widget(Button(text=f"{current_obj['name']} \n"
-                                                   f"{current_obj['type']} \n"
-                                                   f"{current_obj['time_start'][0]}:00 -"
-                                                   f" {current_obj['time_stop'][0]}:00",
-                                              size_hint=[1,None]))
+            for i in event_dict:
+                current_obj = event_dict.get(i)
+                for j in current_obj['days']:
+                    self.ids[j].add_widget(Button(text=f"{current_obj['name']} \n"
+                                                       f"{current_obj['type']} \n"
+                                                       f"{current_obj['time_start'][0]}:00 -"
+                                                       f" {current_obj['time_stop'][0]}:00",
+                                                  size_hint=[1,None]))
+        except:
+            print('A bug appeared when trying to load events from json file, herhaps it is currently empty or missing')
 
 
