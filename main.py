@@ -11,26 +11,21 @@ from Journal import *
 
 
 class Character(Screen): #should be merged with player.py either by having the player as an object or something else.
-    def __sheet_from_json(self):
+    def sheet_from_json(self):
         with open('player.json') as json_file:
             stats = json.load(json_file)
 
         return stats
 
     def fetch_stat(self,stat):
-        stats = self.__sheet_from_json()
+        stats = self.sheet_from_json()
         str_val = stats[stat]
 
         return str(str_val)
-    
-
-
-
-
 
 class Application(App):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def init(self, kwargs):
+        super().init(kwargs)
         self.sm = ScreenManager()
 
 
@@ -41,7 +36,7 @@ class Application(App):
         return player
 
     ##template for property change ##
-    #def on_property(self,obj,value): 
+    #def on_property(self,obj,value):
     #   print("property change?")
 
     ##template for event##
@@ -53,6 +48,7 @@ class Application(App):
         player.read_from_json()
         player.x
 
+    sm = ScreenManager()
 
     def build(self):
         nav_bars = NavBar(self.sm)
@@ -72,4 +68,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
