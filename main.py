@@ -55,7 +55,7 @@ class Application(App):
 
         new_event_page = NewEventPage()
 
-        lst = [CalendarPage(nav_bars.calender_navbar(new_event_page)),Character(),Journal(),Quest(),Shop()]
+        lst = [CalendarPage(nav_bars.calender_navbar(new_event_page)),Character(),Journal(),Quest(self.player),Shop()]
         main_box = BoxLayout(orientation="vertical")
         self.sm.switch_to(lst[0])
         main_box.add_widget(nav_bars.main_navbar(lst))
