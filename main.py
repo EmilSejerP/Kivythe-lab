@@ -15,11 +15,10 @@ class Character(Screen):
 
     def fetch_stat(self,stat):
         stats = self.__sheet_from_json()
-
         str_val = stats[stat]
 
         return str(str_val)
-    pass
+    
 
 class Journal(Screen):
     def __init__(self, **kwargs):
@@ -27,32 +26,69 @@ class Journal(Screen):
         self.top_button_share = 1
         self.top_label_share = 2.3
 
+        for key in self.__read_json_entries().keys():
+            self.create_entry2(key)
+
+    def __read_json_entries(self):
+        try:
+            with open('journalEntries.json') as json_file:
+                dict = json.load(json_file)
+            return dict
+        except:
+            emptyDict = {}
+            return emptyDict
+
     def print_input_text(self):
         print(self.ids.input.text)
 
     def save_to_json(self):
         pass
 
-    def create_entry(self):
-        self.top_button_share -= 0
-        self.top_label_share -= 0
+    def create_entry2(self, name):
         button_share = \
             Button(pos_hint={"x": 0, "top": self.top_button_share},
-                   size_hint_y=None, height=32)
-        label_share = \
-            Label(text=str(self.ids.title_input.text), pos_hint={"x": 0, "top": self.top_label_share},
-                  size_hint_y=None)
+                    size_hint_y=None, height=32,text = name)
         button_share.bind(on_release=self.button_load)
         fl = FloatLayout(size_hint_y=None, height=25)
         fl.add_widget(button_share)
-        fl.add_widget(label_share)
         self.ids.box_share.add_widget(fl)
 
+    def create_entry(self):
+        if self.create_entries_json() == False: #if we already have the entry in JSON, do not create a new button in the app
+            button_share = \
+                Button(pos_hint={"x": 0, "top": self.top_button_share},
+                       size_hint_y=None, height=32,text = self.ids.title_input.text)
+            button_share.bind(on_release=self.button_load)
+            fl = FloatLayout(size_hint_y=None, height=25)
+            fl.add_widget(button_share)
+            self.ids.box_share.add_widget(fl)
+        else:
+            pass
+
     def button_load(self, obj):
-        self.ids.input.text = name
+        print(obj)
+        self.ids.input.text = self.__read_json_entries()[obj.text]
         pass
+
     def create_entries_json(self):
-        pass
+        oldEntries = self.__read_json_entries() #Fetch json objects currently in .json file
+        entryName  = self.ids.title_input.text  #Fetch the key name
+        text       = self.ids.input.text        #Fetch value
+        hasEntry   = False                      #We assume that the map doesnt already contain the key
+
+        if entryName in oldEntries:
+            hasEntry = True
+
+        oldEntries[entryName] = text            #insert into the dict
+
+        try:
+            with open('journalEntries.json','w') as outfile:
+                json.dump(oldEntries,outfile)       #write the dict to .json file
+        except:
+            print("Something went wrong when writing the journal entry to json. Is journalEntries.json missing?")
+            print(oldEntries)
+
+        return hasEntry
     pass
 
 class Quest(Screen):
