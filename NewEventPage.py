@@ -1,3 +1,4 @@
+from kivy.uix.behaviors import ToggleButtonBehavior
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import Screen
@@ -74,33 +75,34 @@ class NewEventPage(Screen):
         box_layout_type.add_widget(type_dropdown)
         box_layout_name.add_widget(text_field_name)
 
-        slut_tid = GridLayout(cols=1, spacing=2, size_hint_y=None)
-        slut_tid.bind(minimum_height=slut_tid.setter('height'))
-        start_tid = GridLayout(cols=1, spacing=2, size_hint_y=None)
-        start_tid.bind(minimum_height=start_tid.setter('height'))
+        slut_tid_layout = GridLayout(cols=1, spacing=2, size_hint_y=None)
+        slut_tid_layout.bind(minimum_height=slut_tid_layout.setter('height'))
+        start_tid_layout = GridLayout(cols=1, spacing=2, size_hint_y=None)
+        start_tid_layout.bind(minimum_height=start_tid_layout.setter('height'))
         for i in range(24):
             btn = ToggleButton(text=str(i+1),size_hint_y=None,height=20,group='start_tid')
-            start_tid.add_widget(btn)
+            start_tid_layout.add_widget(btn)
             btn = ToggleButton(text=str(i + 1), size_hint_y=None, height=20,group='slut_tid')
-            slut_tid.add_widget(btn)
+            slut_tid_layout.add_widget(btn)
         root = ScrollView(size_hint=(1, None))
-        root.add_widget(start_tid)
+        root.add_widget(start_tid_layout)
         box_layout_time.add_widget(root)
         root1 = ScrollView(size_hint=(1, None))
-        root1.add_widget(slut_tid)
+        root1.add_widget(slut_tid_layout)
         box_layout_time.add_widget(root1)
-
         box_layout_time.add_widget(commit_button)
 
         self.add_widget(box_layout)
         return self
 
     def new_event(self,obj):
+        start_tid = [i.text for i in ToggleButtonBehavior.get_widgets('start_tid') if i.state == 'down']
+        slut_tid = [i.text for i in ToggleButtonBehavior.get_widgets('slut_tid') if i.state == 'down']
         name = self.ids['text_field_name'].text
         type = self.ids['mainbutton'].text
         active_days = []
         for day in self.days:
             if self.ids[day].active == True:
                 active_days.append(day)
-        event_object = EventObject(name, type, active_days, 12, 13)
+        event_object = EventObject(name, type, active_days, start_tid, slut_tid)
         event_object.write_to_json()

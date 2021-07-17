@@ -1,1 +1,1 @@
-{"[]12": {"name": "", "type": "Endurance", "days": [], "time_start": 12, "time_stop": 13}}
+{"Work The fuck out!['Mon', 'Wed', 'Fri']['7']": {"name": "Work The fuck out!", "type": "Strength", "days": ["Mon", "Wed", "Fri"], "time_start": ["7"], "time_stop": ["8"]}}
