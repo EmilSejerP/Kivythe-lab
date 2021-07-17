@@ -23,13 +23,12 @@ class Character(Screen):
 class Journal(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.top_button_share = 1
-        self.top_label_share = 2.3
+        self.top_button_share = 1 #size of button
 
-        for key in self.__read_json_entries().keys():
-            self.create_entry2(key)
+        for key in self.__read_json_entries().keys(): #Fetch all journal entries in the .json
+            self.__create_entry2(key)                   #add them as clickable buttons in the journal menu
 
-    def __read_json_entries(self):
+    def __read_json_entries(self): #for reading journalEntries.json
         try:
             with open('journalEntries.json') as json_file:
                 dict = json.load(json_file)
@@ -38,13 +37,7 @@ class Journal(Screen):
             emptyDict = {}
             return emptyDict
 
-    def print_input_text(self):
-        print(self.ids.input.text)
-
-    def save_to_json(self):
-        pass
-
-    def create_entry2(self, name):
+    def __create_entry2(self, name): #create entries in init 
         button_share = \
             Button(pos_hint={"x": 0, "top": self.top_button_share},
                     size_hint_y=None, height=32,text = name)
@@ -65,12 +58,12 @@ class Journal(Screen):
         else:
             pass
 
-    def button_load(self, obj):
+    def button_load(self, obj):                #make the journal entry text load whenever the corresponding button is pressed in the journal menu.
         print(obj)
         self.ids.input.text = self.__read_json_entries()[obj.text]
         pass
 
-    def create_entries_json(self):
+    def create_entries_json(self):              #write entries to .json file
         oldEntries = self.__read_json_entries() #Fetch json objects currently in .json file
         entryName  = self.ids.title_input.text  #Fetch the key name
         text       = self.ids.input.text        #Fetch value
