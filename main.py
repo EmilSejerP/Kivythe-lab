@@ -7,6 +7,18 @@ from NavBar import *
 from NewEventPage import *
 
 class Character(Screen):
+    def __sheet_from_json(self):
+        with open('player.json') as json_file:
+            stats = json.load(json_file)
+
+        return stats
+
+    def fetch_stat(self,stat):
+        stats = self.__sheet_from_json()
+
+        str_val = stats[stat]
+
+        return str(str_val)
     pass
 
 class Journal(Screen):

@@ -12,40 +12,39 @@
 
 <Character>:
 	BoxLayout:
-		size_hint: 0.2,1
 		orientation: 'vertical'
-		valign: "left"
 
 		Label:
 			id:str
 			text_size: self.size
-			valign: "middle"
 			padding_x: 5
-			text: 'Strength:'
+			text: 'Strength:' + root.fetch_stat("str")
 			color: 1,0,0,1
-			pos_hint:{"left":1}
+
 		Label:
 			id:end
 			text_size: self.size
-			valign: "middle"
 			padding_x: 5
-			text: 'Endurance:'
+			text: 'Endurance:' + root.fetch_stat("end")
 			color: 1,0,0,1
-			pos_hint:{"left":1}
+
 		Label:
 			id:int
 			text_size: self.size
-			valign: "middle"
 			padding_x: 5
-			text: 'Intelligence:'
+			text: 'Intelligence:' + root.fetch_stat("int")
 			color: 1,0,0,1
-			pos_hint:{"left":1}
+
 		Label:
 			id:spt
 			text_size: self.size
-			valign: "middle"
 			padding_x: 5
-			text: 'Spirit:'
+			text: 'Spirit:' + root.fetch_stat("spt")
 			color: 1,0,0,1
-			pos_hint:{"left":1}
+
+			
+
+
+
+			
 
