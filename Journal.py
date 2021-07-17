@@ -9,7 +9,7 @@ class Journal(Screen):
         self.top_button_share = 1 #size of button
 
         for key in self.__read_json_entries().keys(): #Fetch all journal entries in the .json
-            self.__create_entry2(key)                   #add them as clickable buttons in the journal menu
+            self.__create_entry2(key)                 #add them as clickable buttons in the journal menu
 
     def __read_json_entries(self): #for reading journalEntries.json
         try:
