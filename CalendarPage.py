@@ -2,6 +2,7 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.image import Image
+from kivy.uix.popup import Popup
 
 from NewEventPage import *
 
@@ -31,7 +32,6 @@ class CalendarPage(Screen):
         box_layout_page.add_widget(grid_layout)
 
         self.add_widget(box_layout_page)
-        #self.update()
         return self
 
     def update(self,obj):
@@ -50,15 +50,27 @@ class CalendarPage(Screen):
                 if i not in self.ids:
                     for j in current_obj['days']:
                         button = Button(text=f"{current_obj['name']} \n"
-                                                           f"{current_obj['type']} \n"
-                                                           f"{current_obj['time_start'][0]}:00 -"
-                                                           f" {current_obj['time_stop'][0]}:00",
-                                                      size_hint=[1,None],
-                                                      color=color_dict.get(current_obj['type']))
+                                               f"{current_obj['type']} \n"
+                                               f"{current_obj['time_start'][0]}:00 -"
+                                               f" {current_obj['time_stop'][0]}:00",
+                                          size_hint=[1,None],
+                                          color=color_dict.get(current_obj['type']))
+                        button.bind(on_release=self.event_popup(current_obj))
                         self.ids[j].add_widget(button)
                     self.ids[f'{i}'] = current_obj
-
-
         except:
             print('A bug appeared when trying to load events from json file, herhaps it is currently empty or missing')
 
+    def event_popup(self,dict):
+        content = BoxLayout(orientation='vertical')
+        text_label = Label(text=f"Title: {dict['name']} \n"
+                                f"Type: {dict['type']} \n"
+                                f"Day: ")
+        close_button = Button(text='Close me!')
+        content.add_widget(text_label)
+        content.add_widget(close_button)
+        popup = Popup(content=content, auto_dismiss=False)
+        close_button.bind(on_press=popup.dismiss)
+        def callback(instance):
+            popup.open()
+        return callback
