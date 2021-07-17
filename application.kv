@@ -1,14 +1,39 @@
 <Journal>:
 	BoxLayout:
-		orientation: 'vertical'
-
-        TextInput:
-			id: input
-			on_text: 'test'
-		Button:
-			size_hint: 1, 0.1
-			text: 'Save Input'
-			on_release: root.print_input_text()
+		orientation: 'horizontal'
+	
+		ScrollView:
+			orientation: 'horizontal'
+			size_hint: 0.5,1
+			
+			GridLayout:
+				id: box_share
+				cols: 1
+				size_hint_y: None
+				spacing: 10
+				padding: 10
+				height: self.minimum_height
+				canvas:
+					Color:
+						rgb: 0.3, 0.3, 0.3
+					Rectangle:
+						pos: self.pos
+						size: self.size
+						
+		BoxLayout:
+			orientation: 'vertical'
+			TextInput:
+				id: title_input
+				size_hint: 1,0.1
+				hint_text: 'Title here.'
+			TextInput:
+				id: input
+				hint_text: 'Journal entry here.'
+			Button:
+				size_hint: 1, 0.1
+				text: 'Save Input'
+				on_release: root.create_entry()
+		
 
 <Character>:
 	BoxLayout:

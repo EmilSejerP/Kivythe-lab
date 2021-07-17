@@ -2,7 +2,7 @@ from kivy.app import App
 from CalendarPage import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 from Player import *
-
+from kivy.uix.floatlayout import FloatLayout
 from NavBar import *
 from NewEventPage import *
 
@@ -22,8 +22,37 @@ class Character(Screen):
     pass
 
 class Journal(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.top_button_share = 1
+        self.top_label_share = 2.3
+
     def print_input_text(self):
         print(self.ids.input.text)
+
+    def save_to_json(self):
+        pass
+
+    def create_entry(self):
+        self.top_button_share -= 0
+        self.top_label_share -= 0
+        button_share = \
+            Button(pos_hint={"x": 0, "top": self.top_button_share},
+                   size_hint_y=None, height=32)
+        label_share = \
+            Label(text=str(self.ids.title_input.text), pos_hint={"x": 0, "top": self.top_label_share},
+                  size_hint_y=None)
+        button_share.bind(on_release=self.button_load)
+        fl = FloatLayout(size_hint_y=None, height=25)
+        fl.add_widget(button_share)
+        fl.add_widget(label_share)
+        self.ids.box_share.add_widget(fl)
+
+    def button_load(self, obj):
+        self.ids.input.text = name
+        pass
+    def create_entries_json(self):
+        pass
     pass
 
 class Quest(Screen):
