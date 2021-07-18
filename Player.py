@@ -3,11 +3,12 @@ from kivy.uix.screenmanager import Screen
 
 class Player:
     def __init__(self):
-        self.hp  = 0
+        self.hp = 0
         self.str = 0
         self.int = 0
         self.spt = 0
         self.end = 0
+        self.golden_coins = 0
         self.inventory = {}
 
     #writes the character sheet to the json file to save it for l8r
@@ -17,6 +18,7 @@ class Player:
         stats['Intelligence'] = self.int
         stats['Endurance'] = self.end
         stats['Spirit'] = self.spt
+        stats['golden_coins'] = self.golden_coins
 
         with open('player.json','w') as outfile:
             json.dump(stats,outfile)
@@ -30,6 +32,7 @@ class Player:
         self.int = stats['Intelligence']
         self.end = stats['Endurance']
         self.spt = stats['Spirit']
+        self.golden_coins = stats['golden_coins']
 
     def increase_stat(self,stat,value):
         self.read_from_json()
