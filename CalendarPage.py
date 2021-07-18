@@ -48,16 +48,15 @@ class CalendarPage(Screen):
             for i in event_dict:
                 current_obj = event_dict.get(i)
                 if i not in self.ids:
-                    for j in current_obj['days']:
-                        button = Button(text=f"{current_obj['name']} \n"
-                                               f"{current_obj['type']} \n"
-                                               f"{current_obj['time_start'][0]}:00 -"
-                                               f" {current_obj['time_stop'][0]}:00",
-                                          size_hint=[1,None],
-                                          color=color_dict.get(current_obj['type']))
-                        button.bind(on_release=self.event_popup(current_obj))
-                        self.ids[j].add_widget(button)
-                    self.ids[f'{i}'] = current_obj
+                    button = Button(text=f"{current_obj['name']} \n"
+                                           f"{current_obj['type']} \n"
+                                           f"{current_obj['time_start'][0]}:00 -"
+                                           f" {current_obj['time_stop'][0]}:00",
+                                      size_hint=[1,None],
+                                      color=color_dict.get(current_obj['type']))
+                    button.bind(on_release=self.event_popup(current_obj))
+                    self.ids[current_obj['days']].add_widget(button)
+                self.ids[f'{i}'] = current_obj
         except:
             print('A bug appeared when trying to load events from json file, herhaps it is currently empty or missing')
 
@@ -65,11 +64,15 @@ class CalendarPage(Screen):
         content = BoxLayout(orientation='vertical')
         text_label = Label(text=f"Title: {dict['name']} \n"
                                 f"Type: {dict['type']} \n"
-                                f"Day: ")
+                                f"Day: {dict['days']} \n"
+                                f"From:{dict['time_start'][0]}:00 - To {dict['time_stop'][0]}:00")
+        succes_button = Button(text='Succes!')
         close_button = Button(text='Close me!')
         content.add_widget(text_label)
+        content.add_widget(succes_button)
         content.add_widget(close_button)
         popup = Popup(content=content, auto_dismiss=False)
+        succes_button.bind(on_release=popup.dismiss)
         close_button.bind(on_press=popup.dismiss)
         def callback(instance):
             popup.open()

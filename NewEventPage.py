@@ -102,11 +102,9 @@ class NewEventPage(Screen):
         if int(slut_tid[0]) - int(start_tid[0]) > 0:
             name = self.ids['text_field_name'].text
             type = self.ids['mainbutton'].text
-            active_days = []
             for day in self.days:
                 if self.ids[day].active == True:
-                    active_days.append(day)
-            event_object = EventObject(name, type, active_days, start_tid, slut_tid)
-            event_object.write_to_json()
-        else:
-            print('Error creating event: cannot create events that goes into the past')
+                    event_object = EventObject(f'{name}{day}{str(start_tid)}',name, type, day, start_tid, slut_tid)
+                    event_object.write_to_json()
+                else:
+                    print('Error creating event: cannot create events that goes into the past')

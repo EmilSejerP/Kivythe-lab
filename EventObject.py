@@ -1,13 +1,13 @@
 import json
 
 class EventObject:
-    def __init__(self,name,type,days,time_start,time_stop):
+    def __init__(self,id,name,type,days,time_start,time_stop):
         self.name = name
         self.type = type
         self.days = days
         self.time_start = time_start
         self.time_stop = time_stop
-        self.id = f"{name}{days}{str(time_start)}"
+        self.id = id
 
     def write_to_json(self):
         event_dict = self.__read_json_entries()
