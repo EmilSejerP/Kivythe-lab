@@ -61,6 +61,7 @@ class CalendarPage(Screen):
             print('A bug appeared when trying to load events from json file, herhaps it is currently empty or missing')
 
     def event_popup(self, d):
+
         content = BoxLayout(orientation='vertical')
         text_label = Label(text=f"Title: {d['name']} \n"
                                 f"Type: {d['type']} \n"
@@ -74,15 +75,14 @@ class CalendarPage(Screen):
 
         popup = Popup(content=content, auto_dismiss=False)
 
-        succes_button.bind(on_release=self.update_player)
+        do_this = self.player.increase_stat(d['type'],1)
+        succes_button.bind(on_release=do_this)
         succes_button.bind(on_release=popup.dismiss)
-
-
         close_button.bind(on_release=popup.dismiss)
 
         def callback(instance):
             popup.open()
         return callback
 
-    def update_player(self):
-        print('you got here')
+
+

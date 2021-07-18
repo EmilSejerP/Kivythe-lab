@@ -31,4 +31,14 @@ class Player:
         self.end = stats['Endurance']
         self.spt = stats['Spirit']
 
+    def increase_stat(self,stat,value):
+        if stat == 'Strength':
+            self.str += value
+        elif stat == 'Intelligence':
+            self.int += value
+        elif stat == 'Endurance':
+            self.end += value
+        else:
+            self.spt += value
+
     
