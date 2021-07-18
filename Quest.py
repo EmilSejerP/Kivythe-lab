@@ -64,12 +64,12 @@ class Notice(Button):
         pass 
 
     def complete_quest(self,obj):
-
+        self.player.read_from_json()
         self.player.str += self.bonus_to_str
         self.player.int += self.bonus_to_int
         self.player.spt += self.bonus_to_spt
         self.player.end += self.bonus_to_end
-
+        self.player.write_to_json()
         print("Quest completed.")
         ##popup?
      

@@ -8,7 +8,7 @@ from NewEventPage import *
 from Quest import *
 from Shop import *
 from Journal import *
-
+from string import digits
 
 class Character(Screen): #should be merged with player.py either by having the player as an object or something else.
     def sheet_from_json(self):
@@ -22,7 +22,17 @@ class Character(Screen): #should be merged with player.py either by having the p
         str_val = stats[stat]
 
         return str(str_val)
+    
+    def refresh_widget(self,obj):
+        print(self.ids)
 
+        for i in self.ids.keys():
+            old_text = self.ids[i].text 
+            remove_digits = str.maketrans('','',digits)
+            res = old_text.translate(remove_digits) + str(self.fetch_stat(i))
+           
+            self.ids[i].text = res
+            print(res,i,self.fetch_stat(i))
 class Application(App):
     def init(self, kwargs):
         super().init(kwargs)
@@ -55,7 +65,7 @@ class Application(App):
 
         new_event_page = NewEventPage()
 
-        lst = [CalendarPage(nav_bars.calender_navbar(new_event_page)),Character(),Journal(),Quest(self.player),Shop()]
+        lst = [CalendarPage(nav_bars.calender_navbar(new_event_page),self.player),Character(),Journal(),Quest(self.player),Shop()]
         main_box = BoxLayout(orientation="vertical")
         self.sm.switch_to(lst[0])
         main_box.add_widget(nav_bars.main_navbar(lst))

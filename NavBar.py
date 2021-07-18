@@ -15,6 +15,7 @@ class NavBar(BoxLayout):
         calendar_button.bind(on_release=lst[0].update)
         character_button = Button(text="Character")
         character_button.bind(on_release=self.switch_to(lst[1]))
+        character_button.bind(on_release=lst[1].refresh_widget)
         journal_button = Button(text="Journal")
         journal_button.bind(on_release=self.switch_to(lst[2]))
         quest_button = Button(text="Quest")

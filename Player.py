@@ -32,6 +32,7 @@ class Player:
         self.spt = stats['Spirit']
 
     def increase_stat(self,stat,value):
+        self.read_from_json()
         if stat == 'Strength':
             self.str += value
         elif stat == 'Intelligence':
@@ -40,5 +41,6 @@ class Player:
             self.end += value
         else:
             self.spt += value
+        self.write_to_json()
 
     
