@@ -8,11 +8,14 @@ from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.label import Label
 from kivy.core.window import Window
 from Item import *
+from kivy.uix.behaviors import ToggleButtonBehavior
+
 class Shop(Screen):
 
-    def __init__(self, **kwargs):
+    def __init__(self, player ,**kwargs):
         super().__init__(**kwargs)
         self.build_page()
+        self.player = player
 
     def build_page(self):
         self.generate_items()
@@ -57,7 +60,17 @@ class Shop(Screen):
                           f"Price: {d['cost']}")
 
         label_box.add_widget(label)
+
+        def attempt_buy(obj):
+            if self.player.golden_coins < d['cost']:
+                print('insufficient funds :(')
+            else:
+                self.player.golden_coins -= d['cost']
+                self.player.inventory[d['name']] = 1
+
+
         buy_button = Button(text='Buy!',size_hint=[1,0.2])
+        buy_button.bind(on_release=attempt_buy)
         close_button = Button(text='Close me!',size_hint=[1,0.2])
 
         button_box.add_widget(buy_button)
@@ -71,6 +84,8 @@ class Shop(Screen):
             popup.open()
 
         return callback
+
+
 
 
     def generate_items(self):

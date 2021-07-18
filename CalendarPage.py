@@ -3,7 +3,6 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.popup import Popup
-import traceback 
 from NewEventPage import *
 
 
@@ -60,8 +59,6 @@ class CalendarPage(Screen):
                 self.ids[f'{i}'] = current_obj
         except:
             print('A bug appeared when trying to load events from json file, herhaps it is currently empty or missing')
-            traceback.print_exc()
-            
 
     def event_popup(self, d):
 
@@ -80,11 +77,8 @@ class CalendarPage(Screen):
 
 
         def player_stat_increase(obj):
-            print(self.player.str)
             self.player.increase_stat(d['type'],1)
-            print("Trying to increase ", d['type'])
             self.player.read_from_json()
-            print(self.player.str)
 
         succes_button.bind(on_release=player_stat_increase)
         succes_button.bind(on_release=popup.dismiss)
