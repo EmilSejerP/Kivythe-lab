@@ -13,10 +13,10 @@ class Player:
     #writes the character sheet to the json file to save it for l8r
     def write_to_json(self):
         stats = {}
-        stats['str'] = self.str
-        stats['int'] = self.int
-        stats['end'] = self.end
-        stats['spt'] = self.spt
+        stats['Strength'] = self.str
+        stats['Intelligence'] = self.int
+        stats['Endurance'] = self.end
+        stats['Spirit'] = self.spt
 
         with open('player.json','w') as outfile:
             json.dump(stats,outfile)
@@ -26,9 +26,9 @@ class Player:
         with open('player.json') as json_file:
             stats = json.load(json_file)
 
-        self.str = stats['str'] 
-        self.int = stats['int']
-        self.end = stats['end']
-        self.spt = stats['spt']
+        self.str = stats['Strength']
+        self.int = stats['Intelligence']
+        self.end = stats['Endurance']
+        self.spt = stats['Spirit']
 
     
